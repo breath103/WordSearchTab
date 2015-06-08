@@ -9,11 +9,16 @@
 import Cocoa
 import WebKit
 
+class CustomWebView : WebView {
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!;
+}
+
+
 class ViewController: NSViewController {
-    @IBOutlet weak var webView1: WebView!
-    @IBOutlet weak var webView2: WebView!
-    @IBOutlet weak var webView3: WebView!
-    @IBOutlet weak var webView4: WebView!
+    @IBOutlet weak var webView1: CustomWebView!
+    @IBOutlet weak var webView2: CustomWebView!
+    @IBOutlet weak var webView3: CustomWebView!
+    @IBOutlet weak var webView4: CustomWebView!
     @IBOutlet weak var queryTextField: NSTextField!
     
     var query: String! = "" {
@@ -34,7 +39,15 @@ class ViewController: NSViewController {
         startObserveWebView(webView4)
     }
     
-    func startObserveWebView(webView: WebView!) {
+    private func scrollWebViewAfterLoad(webView: WebView!) {
+        if (webView == webView1 || webView == webView2) {
+            webView?.stringByEvaluatingJavaScriptFromString(String("window.scrollTo(0, 95)"))
+        } else if (webView == webView3 || webView == webView4) {
+            webView?.stringByEvaluatingJavaScriptFromString(String("window.scrollTo(0, 82)"))
+        }
+    }
+    
+    private func startObserveWebView(webView: WebView!) {
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "webViewProgressStarted:",
@@ -55,34 +68,32 @@ class ViewController: NSViewController {
         )
     }
     
+    // WebView Progress Notifications Handlers
     func webViewProgressStarted(notification: NSNotification!) {
-        var webView : WebView? = notification.object as? WebView
-//        print(webView)
+        var webView : CustomWebView! = notification.object as! CustomWebView
+        webView.progressIndicator.hidden = false;
+        webView.progressIndicator.doubleValue = 0.0;
+        webView.hidden = true;
     }
     func webViewProgressEstimateChanged(notification: NSNotification!) {
-        var webView : WebView? = notification.object as? WebView
-        print(webView?.estimatedProgress)
+        var webView : CustomWebView! = notification.object as! CustomWebView
+        webView.progressIndicator.doubleValue = webView.estimatedProgress
+        scrollWebViewAfterLoad(webView!)
+        webView.hidden = true;
     }
     func webViewProgressFinished(notification: NSNotification!) {
-        var webView : WebView? = notification.object as? WebView
-//        print(webView)
+        var webView : CustomWebView! = notification.object as! CustomWebView
+        webView.progressIndicator.hidden = true;
+        scrollWebViewAfterLoad(webView!)
+        webView.hidden = false;
     }
-    
 
-    func loadURLToWebView(URLString: String!, webView: WebView!) {
+    private func loadURLToWebView(URLString: String!, webView: WebView!) {
+        webView.mainFrame.stopLoading()
         webView.mainFrame.loadRequest(NSURLRequest(URL: NSURL(string: URLString)!))
     }
     
     @IBAction func onQueryChanged(sender: NSTextField) {
         query = sender.stringValue;
     }
-    
-    override var representedObject: AnyObject? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
-
 }
-

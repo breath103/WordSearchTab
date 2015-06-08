@@ -678,7 +678,7 @@
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eG7-Ok-YYn">
                                         <rect key="frame" x="0.0" y="444" width="780" height="36"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="Query" drawsBackground="YES" id="aJe-AQ-ZK5">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="Query" drawsBackground="YES" id="aJe-AQ-ZK5">
                                             <font key="font" metaFont="system" size="26"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -687,51 +687,95 @@
                                             <action selector="onQueryChanged:" target="XfG-lQ-9wD" id="tKI-NU-pgG"/>
                                         </connections>
                                     </textField>
-                                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="EIU-C6-iWw">
+                                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="EIU-C6-iWw" customClass="CustomWebView" customModule="TranslatorTabs" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="223" width="386" height="221"/>
                                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                             <nil key="identifier"/>
                                         </webPreferences>
+                                        <connections>
+                                            <outlet property="progressIndicator" destination="WFN-zX-MYh" id="G7g-UX-2vX"/>
+                                        </connections>
                                     </webView>
-                                    <webView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KFC-e9-B8R">
-                                        <rect key="frame" x="394" y="223" width="386" height="221"/>
-                                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
-                                            <nil key="identifier"/>
-                                        </webPreferences>
-                                    </webView>
-                                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="JlC-Nr-Q7d">
+                                    <progressIndicator misplaced="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="WFN-zX-MYh">
+                                        <rect key="frame" x="44" y="322" width="300" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="6nq-lU-Hvh"/>
+                                        </constraints>
+                                    </progressIndicator>
+                                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="JlC-Nr-Q7d" customClass="CustomWebView" customModule="TranslatorTabs" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="386" height="222"/>
                                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                             <nil key="identifier"/>
                                         </webPreferences>
+                                        <connections>
+                                            <outlet property="progressIndicator" destination="MMK-Im-4AU" id="WF6-hd-Ag8"/>
+                                        </connections>
                                     </webView>
-                                    <webView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JYg-qx-9ts">
+                                    <progressIndicator maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="MMK-Im-4AU">
+                                        <rect key="frame" x="43" y="101" width="300" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="6PY-lS-EIl"/>
+                                        </constraints>
+                                    </progressIndicator>
+                                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="JYg-qx-9ts" customClass="CustomWebView" customModule="TranslatorTabs" customModuleProvider="target">
                                         <rect key="frame" x="394" y="0.0" width="386" height="222"/>
                                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                             <nil key="identifier"/>
                                         </webPreferences>
+                                        <connections>
+                                            <outlet property="progressIndicator" destination="loF-Kx-36h" id="yEp-Iz-nNc"/>
+                                        </connections>
                                     </webView>
+                                    <progressIndicator maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="loF-Kx-36h">
+                                        <rect key="frame" x="437" y="101" width="300" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="52h-Dc-cQL"/>
+                                        </constraints>
+                                    </progressIndicator>
+                                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="KFC-e9-B8R" customClass="CustomWebView" customModule="TranslatorTabs" customModuleProvider="target">
+                                        <rect key="frame" x="394" y="223" width="386" height="221"/>
+                                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                            <nil key="identifier"/>
+                                        </webPreferences>
+                                        <connections>
+                                            <outlet property="progressIndicator" destination="sU4-m9-kol" id="e9M-CM-IRi"/>
+                                        </connections>
+                                    </webView>
+                                    <progressIndicator maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-m9-kol">
+                                        <rect key="frame" x="437" y="323" width="300" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="AjD-a7-kbU"/>
+                                        </constraints>
+                                    </progressIndicator>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="eG7-Ok-YYn" secondAttribute="trailing" id="1fG-vZ-sIO"/>
+                                    <constraint firstItem="sU4-m9-kol" firstAttribute="centerX" secondItem="KFC-e9-B8R" secondAttribute="centerX" id="4Ps-3O-aSz"/>
                                     <constraint firstAttribute="bottom" secondItem="JlC-Nr-Q7d" secondAttribute="bottom" id="4hI-iA-UQo"/>
                                     <constraint firstAttribute="bottom" secondItem="JYg-qx-9ts" secondAttribute="bottom" id="768-wA-fis"/>
                                     <constraint firstItem="JlC-Nr-Q7d" firstAttribute="top" secondItem="EIU-C6-iWw" secondAttribute="bottom" constant="1" id="AMM-jO-rMU"/>
+                                    <constraint firstItem="JYg-qx-9ts" firstAttribute="centerY" secondItem="loF-Kx-36h" secondAttribute="centerY" id="Cri-f5-9jN"/>
                                     <constraint firstItem="JlC-Nr-Q7d" firstAttribute="width" secondItem="JYg-qx-9ts" secondAttribute="width" id="GKq-52-Fv7"/>
                                     <constraint firstItem="KFC-e9-B8R" firstAttribute="top" secondItem="eG7-Ok-YYn" secondAttribute="bottom" id="Lhc-mz-b47"/>
                                     <constraint firstAttribute="trailing" secondItem="JYg-qx-9ts" secondAttribute="trailing" id="NH1-zk-wzm"/>
                                     <constraint firstItem="EIU-C6-iWw" firstAttribute="height" secondItem="JlC-Nr-Q7d" secondAttribute="height" id="NQR-On-g8l"/>
                                     <constraint firstItem="eG7-Ok-YYn" firstAttribute="leading" secondItem="BK5-Mi-2Yk" secondAttribute="leading" id="PfR-58-zsy"/>
+                                    <constraint firstItem="sU4-m9-kol" firstAttribute="centerY" secondItem="KFC-e9-B8R" secondAttribute="centerY" id="Qvs-cH-3FD"/>
                                     <constraint firstItem="EIU-C6-iWw" firstAttribute="leading" secondItem="BK5-Mi-2Yk" secondAttribute="leading" id="SDH-Yp-LYX"/>
+                                    <constraint firstItem="WFN-zX-MYh" firstAttribute="centerY" secondItem="EIU-C6-iWw" secondAttribute="centerY" constant="0.5" id="VZr-E9-fPI"/>
                                     <constraint firstItem="eG7-Ok-YYn" firstAttribute="top" secondItem="BK5-Mi-2Yk" secondAttribute="top" constant="20" id="W9W-eg-kxu"/>
+                                    <constraint firstItem="JlC-Nr-Q7d" firstAttribute="centerX" secondItem="MMK-Im-4AU" secondAttribute="centerX" id="WY1-3r-zsl"/>
+                                    <constraint firstItem="JlC-Nr-Q7d" firstAttribute="centerY" secondItem="MMK-Im-4AU" secondAttribute="centerY" id="Wdb-gi-BFA"/>
                                     <constraint firstItem="JYg-qx-9ts" firstAttribute="height" secondItem="KFC-e9-B8R" secondAttribute="height" id="Y23-Qr-McL"/>
                                     <constraint firstItem="EIU-C6-iWw" firstAttribute="top" secondItem="eG7-Ok-YYn" secondAttribute="bottom" id="ek9-fB-QSM"/>
                                     <constraint firstAttribute="trailing" secondItem="KFC-e9-B8R" secondAttribute="trailing" id="gFM-gM-cGO"/>
                                     <constraint firstItem="EIU-C6-iWw" firstAttribute="width" secondItem="KFC-e9-B8R" secondAttribute="width" id="gwr-ns-wSE"/>
                                     <constraint firstItem="KFC-e9-B8R" firstAttribute="leading" secondItem="EIU-C6-iWw" secondAttribute="trailing" constant="8" id="gzF-Y1-brc"/>
+                                    <constraint firstItem="WFN-zX-MYh" firstAttribute="centerX" secondItem="EIU-C6-iWw" secondAttribute="centerX" constant="0.5" id="k2q-td-yv2"/>
                                     <constraint firstItem="JlC-Nr-Q7d" firstAttribute="leading" secondItem="BK5-Mi-2Yk" secondAttribute="leading" id="mZP-zz-O7F"/>
                                     <constraint firstItem="JYg-qx-9ts" firstAttribute="top" secondItem="KFC-e9-B8R" secondAttribute="bottom" constant="1" id="ucs-fs-lpu"/>
                                     <constraint firstItem="JYg-qx-9ts" firstAttribute="leading" secondItem="JlC-Nr-Q7d" secondAttribute="trailing" constant="8" id="w6z-nX-G7U"/>
+                                    <constraint firstItem="JYg-qx-9ts" firstAttribute="centerX" secondItem="loF-Kx-36h" secondAttribute="centerX" id="yvs-0X-6S9"/>
                                 </constraints>
                             </customView>
                         </subviews>
@@ -743,6 +787,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressIndicator" destination="WFN-zX-MYh" id="nTZ-L0-IRQ"/>
                         <outlet property="queryTextField" destination="eG7-Ok-YYn" id="re4-iV-TcJ"/>
                         <outlet property="webView1" destination="EIU-C6-iWw" id="kJT-E5-p0m"/>
                         <outlet property="webView2" destination="KFC-e9-B8R" id="aRg-H4-Ayf"/>
@@ -752,7 +797,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-554" y="733"/>
+            <point key="canvasLocation" x="-701" y="711"/>
         </scene>
     </scenes>
 </document>
