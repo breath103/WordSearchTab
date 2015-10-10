@@ -34,11 +34,31 @@ class ViewController: NSViewController {
                 NSUserDefaults.standardUserDefaults().setObject(originalArray, forKey: "searchHistory")
                 
                 print(originalArray, terminator: "")
-                
-                self.loadURLToWebView(String(format: "http://m.endic.naver.com/search.nhn?searchOption=all&query=%@", query), webView: webView1)
-                self.loadURLToWebView(String(format: "http://m.frdic.naver.com/search.nhn?query=%@", query), webView: webView2)
-                self.loadURLToWebView(String(format: "http://www.wordreference.com/enfr/%@", query), webView: webView3)
-                self.loadURLToWebView(String(format: "http://www.wordreference.com/fren/%@", query), webView: webView4)
+
+                self.loadURLToWebView(
+                    buildURL("http://m.endic.naver.com/search.nhn",
+                             queryItems: [
+                                NSURLQueryItem(name: "searchOption", value: "all"),
+                                NSURLQueryItem(name: "query", value: query)
+                            ]),
+                    webView: webView1);
+
+                self.loadURLToWebView(
+                    buildURL("http://m.frdic.naver.com/search.nhn",
+                        queryItems: [
+                            NSURLQueryItem(name: "query", value: query)
+                        ]),
+                    webView: webView2);
+
+                self.loadURLToWebView(
+                    buildURL(String(format: "http://www.wordreference.com/enfr/%@", query).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding), queryItems: []),
+                    webView: webView3
+                );
+
+                self.loadURLToWebView(
+                    buildURL(String(format: "http://www.wordreference.com/fren/%@", query).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding), queryItems: []),
+                    webView: webView4
+                );
             }
         }
     }
@@ -48,6 +68,12 @@ class ViewController: NSViewController {
         startObserveWebView(webView2)
         startObserveWebView(webView3)
         startObserveWebView(webView4)
+    }
+    
+    private func buildURL(baseURL: String!, queryItems: [NSURLQueryItem]?) -> NSURL {
+        let urlComponents : NSURLComponents = NSURLComponents(string: baseURL)!;
+        urlComponents.queryItems = queryItems;
+        return urlComponents.URL!;
     }
     
     private func scrollWebViewAfterLoad(webView: WebView!) {
@@ -99,9 +125,9 @@ class ViewController: NSViewController {
         webView.hidden = false;
     }
 
-    private func loadURLToWebView(URLString: String!, webView: WebView!) {
+    private func loadURLToWebView(URL: NSURL!, webView: WebView!) {
         webView.mainFrame.stopLoading();
-        webView.mainFrame.loadRequest(NSURLRequest(URL: NSURL(string: URLString)!))
+        webView.mainFrame.loadRequest(NSURLRequest(URL: URL))
     }
     
     @IBAction func onQueryChanged(sender: NSTextField) {
