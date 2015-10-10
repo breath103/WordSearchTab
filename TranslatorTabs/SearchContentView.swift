@@ -30,7 +30,7 @@ class SearchContentView: NSView {
     private func __init() {
         var webView : WebView! = WebView()
         
-        webView.autoresizingMask = NSAutoresizingMaskOptions.ViewWidthSizable | NSAutoresizingMaskOptions.ViewHeightSizable
+        webView.autoresizingMask = [NSAutoresizingMaskOptions.ViewWidthSizable, NSAutoresizingMaskOptions.ViewHeightSizable]
 
         func startObserveWebView(webView: WebView!) {
             NSNotificationCenter.defaultCenter().addObserver(
@@ -62,12 +62,12 @@ class SearchContentView: NSView {
         var webView : WebView? = notification.object as? WebView
     }
     private func webViewProgressEstimateChanged(notification: NSNotification!) {
-        var webView : WebView? = notification.object as? WebView
+        let webView : WebView? = notification.object as? WebView
         print(webView?.estimatedProgress)
         webView?.stringByEvaluatingJavaScriptFromString(String("window.scrollTo(0, 90)"))
     }
     private func webViewProgressFinished(notification: NSNotification!) {
-        var webView : WebView? = notification.object as? WebView
+        let webView : WebView? = notification.object as? WebView
         webView?.stringByEvaluatingJavaScriptFromString(String("window.scrollTo(0, 90)"))
     }
     

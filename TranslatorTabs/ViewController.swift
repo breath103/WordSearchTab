@@ -24,6 +24,17 @@ class ViewController: NSViewController {
     var query: String! = "" {
         didSet {
             if query != oldValue {
+                var originalArray : [AnyObject]? = NSUserDefaults.standardUserDefaults().objectForKey("searchHistory") as? [AnyObject]
+                if (originalArray == nil) {
+                    originalArray = [AnyObject]()
+                }
+                
+                originalArray?.append(query)
+                
+                NSUserDefaults.standardUserDefaults().setObject(originalArray, forKey: "searchHistory")
+                
+                print(originalArray, terminator: "")
+                
                 self.loadURLToWebView(String(format: "http://m.endic.naver.com/search.nhn?searchOption=all&query=%@", query), webView: webView1)
                 self.loadURLToWebView(String(format: "http://m.frdic.naver.com/search.nhn?query=%@", query), webView: webView2)
                 self.loadURLToWebView(String(format: "http://www.wordreference.com/enfr/%@", query), webView: webView3)
@@ -70,26 +81,26 @@ class ViewController: NSViewController {
     
     // WebView Progress Notifications Handlers
     func webViewProgressStarted(notification: NSNotification!) {
-        var webView : CustomWebView! = notification.object as! CustomWebView
+        let webView : CustomWebView! = notification.object as! CustomWebView
         webView.progressIndicator.hidden = false;
         webView.progressIndicator.doubleValue = 0.0;
         webView.hidden = true;
     }
     func webViewProgressEstimateChanged(notification: NSNotification!) {
-        var webView : CustomWebView! = notification.object as! CustomWebView
+        let webView : CustomWebView! = notification.object as! CustomWebView
         webView.progressIndicator.doubleValue = webView.estimatedProgress
         scrollWebViewAfterLoad(webView!)
         webView.hidden = true;
     }
     func webViewProgressFinished(notification: NSNotification!) {
-        var webView : CustomWebView! = notification.object as! CustomWebView
+        let webView : CustomWebView! = notification.object as! CustomWebView
         webView.progressIndicator.hidden = true;
         scrollWebViewAfterLoad(webView!)
         webView.hidden = false;
     }
 
     private func loadURLToWebView(URLString: String!, webView: WebView!) {
-        webView.mainFrame.stopLoading()
+        webView.mainFrame.stopLoading();
         webView.mainFrame.loadRequest(NSURLRequest(URL: NSURL(string: URLString)!))
     }
     

@@ -787,7 +787,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="progressIndicator" destination="WFN-zX-MYh" id="nTZ-L0-IRQ"/>
                         <outlet property="queryTextField" destination="eG7-Ok-YYn" id="re4-iV-TcJ"/>
                         <outlet property="webView1" destination="EIU-C6-iWw" id="kJT-E5-p0m"/>
                         <outlet property="webView2" destination="KFC-e9-B8R" id="aRg-H4-Ayf"/>
